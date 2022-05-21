@@ -3,6 +3,7 @@ package ru.itsokay.launcher;
 import javafx.application.Application;
 import javafx.concurrent.Worker;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -14,26 +15,34 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-public class HelloApplication extends Application {
+public class Launcher extends Application {
+    // Позиция приложения на экране пользователя
     private double xOffset;
     private double yOffset;
+    // Разрешение на перемещение экрана
     private boolean moveAccess = false;
+
+    // Экран
     private Stage stage;
+
+    // Конектор JavaScript к Java
     private final JavaConnector javaConnector = new JavaConnector();
+    // Конектор Java к JavaScript
     private JSObject javascriptConnector;
 
 
+    // Запуск приложения
     @Override
     public void start(Stage stage) throws IOException {
         this.stage = stage;
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setResizable(false);
-        URL url = new File("src/main/resources/ru/itsokay/launcher/test.html").toURI().toURL();
+        stage.initStyle(StageStyle.TRANSPARENT); // Отключение фона
+        stage.setResizable(false); // Запрет на изменение размера
+        URL url = new File("src/main/resources/ru/itsokay/launcher/html/Main.html").toURI().toURL(); // Подключение к HTML файлу
 
         final WebView browser = new WebView();
         final WebEngine webEngine = browser.getEngine();
 
-
+        // Подключение конекторов Java и JavaScript
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (Worker.State.SUCCEEDED == newValue) {
                 JSObject window = (JSObject) webEngine.executeScript("window");
@@ -42,8 +51,9 @@ public class HelloApplication extends Application {
             }
         });
 
-        Scene scene = new Scene(browser, 1280, 720);
+        Scene scene = new Scene(browser, 1000, 600);
 
+        // Вызывается при нажатии на ЛКМ
         browser.setOnMousePressed(event -> {
             if (event.getY() <= 30) {
                 moveAccess = true;
@@ -51,12 +61,16 @@ public class HelloApplication extends Application {
                 yOffset = stage.getY() - event.getScreenY();
             }
         });
+
+        // Вызывается при перемещении мыши с нажатой ЛКМ
         browser.setOnMouseDragged(event -> {
             if (moveAccess) {
                 stage.setX(event.getScreenX() + xOffset);
                 stage.setY(event.getScreenY() + yOffset);
             }
         });
+
+        // Вызывается при отжатии на ЛКМ
         browser.setOnMouseReleased(mouseEvent -> {
             if (moveAccess) {
                 moveAccess = false;
@@ -65,6 +79,7 @@ public class HelloApplication extends Application {
 
         browser.setPageFill(Color.TRANSPARENT);
         scene.setFill(Color.TRANSPARENT);
+        stage.getIcons().add(new Image("file:src/main/resources/ru/itsokay/launcher/images/ok.png"));
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
