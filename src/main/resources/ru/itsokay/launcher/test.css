@@ -1,0 +1,71 @@
+body, html {
+    background: #5CA4EA;
+    border-radius: 8px;
+    user-select:none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+}
+
+.closeButton {
+    width: 25px;
+    height: 25px;
+    background: #e23b3a;
+    border-radius: 200px;
+    border: rgba(255, 255, 255, 0);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: all 0.3s;
+}
+
+.closeButton:hover {
+    background: #ae2525;
+}
+
+.closeButton:active {
+    background: transparent;
+    transition: all 0s;
+}
+
+.closeButton:before {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    line-height: 3;
+    font-size: 140%;
+    width: 60px;
+}
+
+
+.minimizeButton {
+    width: 25px;
+    height: 25px;
+    background: #e5b60f;
+    border-radius: 200px;
+    border: rgba(255, 255, 255, 0);
+    position: absolute;
+    top: 10px;
+    right: 45px;
+    transition: all 0.3s;
+}
+
+.minimizeButton:hover {
+    background: #aa8506;
+}
+
+.minimizeButton:active {
+    background: transparent;
+    transition: all 0s;
+}
+
+.minimizeButton:before {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    line-height: 3;
+    font-size: 140%;
+    width: 60px;
+}

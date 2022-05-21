@@ -1,0 +1,18 @@
+.root {
+    -fx-background-radius: 8px;
+    -fx-background-color: #1B1C1B;
+}
+
+.closeButton {
+    -fx-background-radius: 20px;
+    -fx-background-color: #e23b3a;
+}
+
+.closeButton:hover {
+    -fx-background-color: #AB2828;
+}
+
+.moveLine {
+    -fx-background-color: #3B3E3B;
+    -fx-background-radius: 16;
+}
