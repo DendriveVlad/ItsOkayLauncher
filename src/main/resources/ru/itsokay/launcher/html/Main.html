@@ -2,17 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../stylesheet/WindowsToolButtons.css">
+    <link rel="stylesheet" href="../stylesheet/Title.css">
     <title>Title</title>
-    <script src="../scripts/Main.js"></script>
+    <script src="../scripts/Main.js" defer></script>
 </head>
 <body>
-    <div class="container" unselectable="on" onselectstart="return false;" onmousedown="return false;">
-        <div class="title">
-            <div class="appButtons">
-                <button class="closeButton" onclick="closeButton();"></button>
-                <button class="minimizeButton" onclick="minimizeButton();"></button>
+    <div class="window" id="window" unselectable="on" onselectstart="return false;" onmousedown="return false;">
+        <div class="title" id="title">
+            <div class="text">
+                <a>
+                    It's Okay
+                </a>
             </div>
+            <div class="appButtons">
+                <button id="close" class="closeButton" onmousedown="blockMove()"></button>
+                <button id="minimize" class="minimizeButton" onmousedown="blockMove()"></button>
+            </div>
+        </div>
+        <div class="container">
+<!--            <div w3-include-html="ConnectionBox.html"></div>-->
         </div>
     </div>
 </body>

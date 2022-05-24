@@ -1,9 +1,42 @@
-function closeButton() {
-
-    javaConnector.close();
+// Отключает вывод контекстного меню ПКМ
+document.oncontextmenu = function () {
+    return false;
 }
 
-function minimizeButton() {
+var closebtn = document.getElementById("close")
+var minimizebtn = document.getElementById("minimize")
+
+function blockMove() {
+    javaConnector.blockMove();
+}
+
+closebtn.onclick = function () {
+    window.setTimeout(close, 200)
+}
+
+function close() {
+    javaConnector.close()
+}
+
+minimizebtn.onclick = function () {
+    var HTMLwindow = document.getElementById("window")
+    var height = 100
+    var id = setInterval(frame, 10)
+    function frame() {
+        height -= 10
+        if (!height) {
+            HTMLwindow.style.visibility = "hidden"
+            clearInterval(id)
+        } else {
+            HTMLwindow.style.height = height + "%"
+        }
+    }
+    window.setTimeout(minimize, 200)
+}
+
+function minimize() {
+    document.getElementById("window").style.height = "100%"
+    document.getElementById("window").style.visibility = "visible"
     javaConnector.minimize()
 }
 

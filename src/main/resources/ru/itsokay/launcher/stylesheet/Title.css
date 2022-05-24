@@ -1,0 +1,107 @@
+body, html {
+    user-select:none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+}
+
+.window {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #161616;
+    border-radius: 8px;
+}
+
+/*Окошечко конекшена*/
+/*.aaaa {*/
+/*    background: #232323;*/
+/*    border-style: solid;*/
+/*    border-color: #878787;*/
+/*    border-radius: 4px;*/
+/*    height: 250px;*/
+/*    width: 400px;*/
+/*    position: absolute;*/
+/*    top: 175px;*/
+/*    left: 300px;*/
+/*}*/
+
+.title {
+    position: fixed;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    top: 0;
+    right: 0;
+    background: #121212;
+    width: 100%;
+    height: 30px;
+}
+
+.text {
+    position: absolute;
+    width: 150px;
+    left: 8px;
+    font-size: 22px;
+    font-family: "Segoe UI Semibold", serif;
+    color: #e5b60f;
+    cursor: default;
+}
+
+.appButtons {
+    position: absolute;
+    width: 56px;
+    height: 26px;
+    right: 8px;
+    top: 2px;
+}
+
+.closeButton {
+    width: 22px;
+    height: 22px;
+    background: #e23b3a;
+    border-radius: 200px;
+    border: rgba(255, 255, 255, 0);
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    transition: all 250ms;
+}
+
+.closeButton:hover {
+    width: 26px;
+    height: 26px;
+    top: 0;
+    right: 0;
+}
+
+.closeButton:active {
+    background: transparent;
+    transition: all 0s;
+}
+
+.minimizeButton {
+    width: 22px;
+    height: 22px;
+    background: #e5b60f;
+    border-radius: 200px;
+    border: rgba(255, 255, 255, 0);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: all 250ms;
+    text-align: center;
+}
+
+.minimizeButton:hover {
+    width: 26px;
+    height: 26px;
+    top: 0;
+    left: 0;
+}
+
+.minimizeButton:active {
+    background: transparent;
+    transition: all 0s;
+}

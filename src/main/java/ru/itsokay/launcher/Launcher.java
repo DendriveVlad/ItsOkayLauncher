@@ -91,12 +91,19 @@ public class Launcher extends Application {
     }
 
     public class JavaConnector {
+        public void test(String a) {
+            System.out.println(a);
+        }
+        public void blockMove() {
+            moveAccess = false;
+        }  // Запрет движения окна при нажатии на кнопки
+
         public void close() {
             stage.close();
-        }
+        }  // Кнопка закрытия
 
         public void minimize() {
             stage.setIconified(true);
-        }
+        }  // Кнопка сворачивания
     }
 }

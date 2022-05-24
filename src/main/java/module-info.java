@@ -9,7 +9,6 @@ module ru.itsokay.launcher {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
-    requires com.almasb.fxgl.all;
     requires jdk.jsobject;
 
     opens ru.itsokay.launcher to javafx.fxml;
