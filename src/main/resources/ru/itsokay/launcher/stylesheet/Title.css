@@ -62,11 +62,11 @@ body, html {
     height: 22px;
     background: #e23b3a;
     border-radius: 200px;
-    border: rgba(255, 255, 255, 0);
+    border: transparent;
     position: absolute;
     top: 2px;
     right: 2px;
-    transition: all 250ms;
+    transition: top 200ms, right 200ms, width 200ms, height 200ms;
 }
 
 .closeButton:hover {
@@ -86,12 +86,11 @@ body, html {
     height: 22px;
     background: #e5b60f;
     border-radius: 200px;
-    border: rgba(255, 255, 255, 0);
+    border: transparent;
     position: absolute;
     top: 2px;
     left: 2px;
-    transition: all 250ms;
-    text-align: center;
+    transition: top 200ms, left 200ms, width 200ms, height 200ms;
 }
 
 .minimizeButton:hover {
