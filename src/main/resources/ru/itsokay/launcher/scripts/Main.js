@@ -3,40 +3,63 @@ document.oncontextmenu = function () {
     return false;
 }
 
-var closebtn = document.getElementById("close")
-var minimizebtn = document.getElementById("minimize")
+var closebtn = document.getElementById("close");
+var minimizebtn = document.getElementById("minimize");
 
 function blockMove() {
     javaConnector.blockMove();
 }
 
+
 closebtn.onclick = function () {
-    window.setTimeout(close, 200)
+    closeAnimation()
+}
+
+function closeAnimation() {
+    var HTMLwindow = document.getElementById("window");
+    var radius = 1200;
+    var d = 0;
+    var id = setInterval(frame, 15);
+
+    function frame() {
+        if (radius > 0) {
+            HTMLwindow.style.clipPath = `circle(${radius}px at right 21px top 15px)`;
+            d += 5
+            radius -= 120 - d;
+        } else {
+            HTMLwindow.style.visibility = "hidden";
+            clearInterval(id);
+        }
+    }
+
+    window.setTimeout(close, 300);
 }
 
 function close() {
-    javaConnector.close()
+    javaConnector.close();
 }
 
 minimizebtn.onclick = function () {
-    var HTMLwindow = document.getElementById("window")
-    var height = 100
-    var id = setInterval(frame, 10)
+    var HTMLwindow = document.getElementById("window");
+    var height = 100;
+    var id = setInterval(frame, 10);
+
     function frame() {
-        height -= 10
+        height -= 10;
         if (!height) {
-            HTMLwindow.style.visibility = "hidden"
-            clearInterval(id)
+            HTMLwindow.style.visibility = "hidden";
+            clearInterval(id);
         } else {
-            HTMLwindow.style.height = height + "%"
+            HTMLwindow.style.height = height + "%";
         }
     }
-    window.setTimeout(minimize, 200)
+
+    window.setTimeout(minimize, 200);
 }
 
 function minimize() {
-    document.getElementById("window").style.height = "100%"
-    document.getElementById("window").style.visibility = "visible"
+    document.getElementById("window").style.height = "100%";
+    document.getElementById("window").style.visibility = "visible";
     javaConnector.minimize()
 }
 
