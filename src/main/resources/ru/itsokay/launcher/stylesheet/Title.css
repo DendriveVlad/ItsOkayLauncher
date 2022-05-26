@@ -56,7 +56,6 @@ body, html {
 }
 
 .closeButton {
-    clip-path: polygon(20% 0%, 0% 20%, 0 50%, 0% 80%, 20% 100%, 49% 100%, 80% 100%, 100% 80%, 100% 51%, 100% 20%, 80% 0%, 48% 0);
     width: 22px;
     height: 22px;
     background: #e23b3a;
@@ -65,11 +64,10 @@ body, html {
     position: absolute;
     top: 2px;
     right: 2px;
-    transition: top 200ms, right 200ms, width 200ms, height 200ms, clip-path 300ms;
+    transition: top 200ms, right 200ms, width 200ms, height 200ms;
 }
 
 .closeButton:hover {
-    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
     width: 26px;
     height: 26px;
     top: 0;
@@ -82,7 +80,6 @@ body, html {
 }
 
 .minimizeButton {
-    clip-path: inset(0 0 0 0);
     width: 22px;
     height: 22px;
     background: #e5b60f;
@@ -91,11 +88,10 @@ body, html {
     position: absolute;
     top: 2px;
     left: 2px;
-    transition: top 200ms, left 200ms, width 200ms, height 200ms, clip-path 300ms;
+    transition: top 200ms, left 200ms, width 200ms, height 200ms;
 }
 
 .minimizeButton:hover {
-    clip-path: inset(35% 0 35% 0);
     width: 26px;
     height: 26px;
     top: 0;
