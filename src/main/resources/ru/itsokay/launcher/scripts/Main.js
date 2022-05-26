@@ -18,21 +18,20 @@ closebtn.onclick = function () {
 function closeAnimation() {
     var HTMLwindow = document.getElementById("window");
     var radius = 1200;
-    var d = 0;
+    var x = -4.95;
     var id = setInterval(frame, 15);
 
     function frame() {
         if (radius > 0) {
             HTMLwindow.style.clipPath = `circle(${radius}px at right 21px top 15px)`;
-            d += 5
-            radius -= 120 - d;
+            x += 0.1;
+            radius -= Math.exp(-x);
         } else {
             HTMLwindow.style.visibility = "hidden";
             clearInterval(id);
         }
     }
-
-    window.setTimeout(close, 300);
+    window.setTimeout(close, 400);
 }
 
 function close() {
