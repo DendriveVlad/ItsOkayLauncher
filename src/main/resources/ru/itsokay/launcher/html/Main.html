@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../stylesheet/Title.css">
+    <link rel="stylesheet" href="../stylesheet/ConnectionStyle.css">
+    <link rel="stylesheet" href="../stylesheet/PlayPage.css">
+
     <title>Title</title>
     <script src="../scripts/Main.js" defer></script>
+    <script src="../scripts/Checks.js" defer></script>
 </head>
 <body>
     <div class="window" id="window" unselectable="on" onselectstart="return false;" onmousedown="return false;">
@@ -15,13 +19,14 @@
                 </a>
             </div>
             <div class="appButtons">
-                <button id="close" class="closeButton" onmousedown="blockMove()"></button>
-                <button id="minimize" class="minimizeButton" onmousedown="blockMove()"></button>
+                <button id="close" onmousedown="blockMove()" class="closeButton"></button>
+                <button id="minimize" onmousedown="blockMove()" class="minimizeButton"></button>
             </div>
         </div>
-        <div class="container">
-<!--            <div w3-include-html="ConnectionBox.html"></div>-->
+        <div>
+            <button id="play" class="playButton">Играть</button>
         </div>
+        <div class="checks" w3-include-html="ChecksMessages.html"></div>
     </div>
 </body>
 </html>

@@ -1,0 +1,22 @@
+.playButton {
+    width: 320px;
+    height: 120px;
+    background: #3e9637;
+    border-radius: 8px;
+    border: transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #1c4a17;
+    font-size: 40pt;
+    transition: background 200ms;
+}
+
+.playButton:hover {
+    background: #276a23;
+}
+
+.playButton:active {
+    background: #0a1608;
+}

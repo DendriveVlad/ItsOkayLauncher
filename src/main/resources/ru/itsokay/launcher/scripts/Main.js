@@ -5,6 +5,7 @@ document.oncontextmenu = function () {
 
 var closebtn = document.getElementById("close");
 var minimizebtn = document.getElementById("minimize");
+var play = document.getElementById("play");
 
 function blockMove() {
     javaConnector.blockMove();
@@ -12,20 +13,20 @@ function blockMove() {
 
 
 closebtn.onclick = function () {
-    closeAnimation()
+    closeAnimation();
 }
 
 function closeAnimation() {
     var HTMLwindow = document.getElementById("window");
     var radius = 1200;
-    var x = -4.95;
+    var x = 4.95;
     var id = setInterval(frame, 15);
 
     function frame() {
         if (radius > 0) {
             HTMLwindow.style.clipPath = `circle(${radius}px at right 21px top 15px)`;
-            x += 0.1;
-            radius -= Math.exp(-x);
+            x -= 0.1;
+            radius -= Math.exp(x);
         } else {
             HTMLwindow.style.visibility = "hidden";
             clearInterval(id);
@@ -40,26 +41,32 @@ function close() {
 
 minimizebtn.onclick = function () {
     var HTMLwindow = document.getElementById("window");
-    var height = 100;
+    var height = 0;
+    var x = 4.3;
     var id = setInterval(frame, 10);
 
     function frame() {
-        height -= 10;
-        if (!height) {
+        height += Math.exp(x)
+        x -= 0.1;
+        if (height >= 600) {
             HTMLwindow.style.visibility = "hidden";
+            HTMLwindow.style.clipPath = `inset(0 0 0 0)`;
             clearInterval(id);
         } else {
-            HTMLwindow.style.height = height + "%";
+            HTMLwindow.style.clipPath = `inset(0 0 ${height}px 0)`;
         }
     }
 
-    window.setTimeout(minimize, 200);
+    window.setTimeout(minimize, 300);
 }
 
 function minimize() {
-    document.getElementById("window").style.height = "100%";
     document.getElementById("window").style.visibility = "visible";
     javaConnector.minimize()
+}
+
+play.onclick = function () {
+    javaConnector.play();
 }
 
 var jsConnector = {

@@ -2,10 +2,8 @@ package ru.itsokay.launcher;
 
 import javafx.application.Application;
 import javafx.concurrent.Worker;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -22,18 +20,19 @@ public class Launcher extends Application {
     private double xOffset;
     private double yOffset;
     // Разрешение на перемещение экрана
-    private boolean moveAccess = false;
+    protected boolean moveAccess = false;
 
     // Экран
-    private Stage stage;
+    protected Stage stage;
 
     // Конектор JavaScript к Java
-    private final JavaConnector javaConnector = new JavaConnector();
+    protected final JavaConnector javaConnector = new JavaConnector(this);
     // Конектор Java к JavaScript
-    private JSObject javascriptConnector;
+    protected JSObject javascriptConnector;
     boolean ctrl = false;
     boolean shift = false;
     boolean alt = false;
+    Checks checks;
 
 
     // Запуск приложения
@@ -52,6 +51,7 @@ public class Launcher extends Application {
             if (Worker.State.SUCCEEDED == newValue) {
                 JSObject window = (JSObject) webEngine.executeScript("window");
                 window.setMember("javaConnector", javaConnector);
+                checks = new Checks((JSObject) webEngine.executeScript("getChecksJsConnector()"), javaConnector);
                 javascriptConnector = (JSObject) webEngine.executeScript("getJsConnector()");
             }
         });
@@ -89,7 +89,7 @@ public class Launcher extends Application {
                 case W -> {
                     if (this.ctrl)
                         try {
-                            javascriptConnector = (JSObject) webEngine.executeScript("closeAnimation()");
+                            javascriptConnector.call("closeAnimation()");
                         } catch (Exception e) {
                             System.out.println();
                         }
@@ -108,7 +108,7 @@ public class Launcher extends Application {
         stage.setOnCloseRequest(windowEvent -> {
             windowEvent.consume();
             try {
-                javascriptConnector = (JSObject) webEngine.executeScript("closeAnimation()");
+                javascriptConnector.call("closeAnimation()");
             } catch (Exception e) {
                 System.out.println();
             }
@@ -121,27 +121,15 @@ public class Launcher extends Application {
         stage.setScene(scene);
         stage.show();
         webEngine.load(url.toString());
+
+//        if (!checks.checkInternetConnection()) {
+//            System.out.println("CONNECTION ERROR");
+//        } else {
+//            System.out.println("Ok.");
+//        }
     }
 
     public static void main(String[] args) {
         launch();
-    }
-
-    public class JavaConnector {
-        public void test(String a) {
-            System.out.println(a);
-        }
-
-        public void blockMove() {
-            moveAccess = false;
-        }  // Запрет движения окна при нажатии на кнопки
-
-        public void close() {
-            stage.close();
-        }  // Кнопка закрытия
-
-        public void minimize() {
-            stage.setIconified(true);
-        }  // Кнопка сворачивания
     }
 }
