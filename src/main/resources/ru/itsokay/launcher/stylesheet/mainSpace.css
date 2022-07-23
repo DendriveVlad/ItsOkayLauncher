@@ -1,0 +1,117 @@
+.mainSpace {
+    top: 30px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.launcherMenu {
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 230px;
+    transform: translate(0, -50%);
+}
+
+.LMenuLine {
+    position: absolute;
+    border-radius: 10px;
+    top: 50%;
+    left: 10px;
+    width: 4px;
+    height: 150px;
+    background: #b9b9b9;
+    transform: translate(0, -50%);
+    transition: left 400ms, background 300ms;
+}
+
+.LMenuChoice {
+    position: absolute;
+    border: solid #b9b9b9;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    top: 50%;
+    left: -110px;
+    width: 100px;
+    height: 300px;
+    transform: translate(0, -50%);
+    background: #121212;
+    transition: left 400ms;
+}
+
+.LMenuButtons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 220px;
+    transform: translate(-50%, -50%);
+}
+
+.LMenuAddons {
+    border: solid #2247a6;
+    border-radius: 10px;
+    color: #2247a6;
+    background: #3277bb;
+    position: absolute;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    transition: background 200ms;
+}
+
+.LMenuAddons:hover {
+    background: #2247a6;
+}
+
+.LMenuPlay {
+    border: solid #1c6318;
+    border-radius: 10px;
+    color: #1c6318;
+    position: absolute;
+    background: #42bb32;
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    transform: translate(0, -50%);
+    transition: background 200ms;
+}
+
+.LMenuPlay:hover {
+    background: #1c6318;
+}
+
+.LMenuSettings {
+    border: solid #444444;
+    border-radius: 10px;
+    color: #444444;
+    background: #676767;
+    position: absolute;
+    bottom: 0;
+    width: 60px;
+    height: 60px;
+    transition: background 200ms;
+}
+
+.LMenuSettings:hover {
+    background: #444444;
+}
+
+span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 80px;
+    font-family: "Segoe UI Semibold", serif;
+    transform: translate(-50%, -55%);
+
+}
+
+.launcherMenu:hover .LMenuLine {
+    left: 80px;
+    background: transparent;
+}
+
+.launcherMenu:hover .LMenuChoice {
+    left: -5px;
+}

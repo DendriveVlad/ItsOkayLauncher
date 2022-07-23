@@ -3,71 +3,91 @@ document.oncontextmenu = function () {
     return false;
 }
 
+let is_closing = false;
+let is_minimizing = false;
+
 var closebtn = document.getElementById("close");
 var minimizebtn = document.getElementById("minimize");
-var play = document.getElementById("play");
+// var play = document.getElementById("play");
 
 function blockMove() {
     javaConnector.blockMove();
 }
 
 
-closebtn.onclick = function () {
+closebtn.onclick = function (e) {
+    if (e.button !== 0 || is_closing) {
+        return
+    }
+    is_closing = true;
     closeAnimation();
 }
 
 function closeAnimation() {
     var HTMLwindow = document.getElementById("window");
     var radius = 1200;
-    var x = 4.95;
+    var x = 0;
     var id = setInterval(frame, 15);
+    var stopAnimation = 0;
 
     function frame() {
-        if (radius > 0) {
+        if (stopAnimation === 2) {
+            close();
+            clearInterval(id);
+        } else if (radius > 0) {
             HTMLwindow.style.clipPath = `circle(${radius}px at right 21px top 15px)`;
-            x -= 0.1;
-            radius -= Math.exp(x);
+            radius -= Math.exp(4-x/16);
+            x += 0.1;
         } else {
             HTMLwindow.style.visibility = "hidden";
-            clearInterval(id);
+            stopAnimation++;
         }
     }
-    window.setTimeout(close, 400);
 }
 
 function close() {
     javaConnector.close();
 }
 
-minimizebtn.onclick = function () {
+minimizebtn.onclick = function (e) {
+    if (e.button !== 0 || is_minimizing) {
+        return
+    }
+    is_minimizing = true;
     var HTMLwindow = document.getElementById("window");
     var height = 0;
-    var x = 4.3;
+    var x = 0;
     var id = setInterval(frame, 10);
+    var stopAnimation = 0;
 
     function frame() {
-        height += Math.exp(x)
-        x -= 0.1;
-        if (height >= 600) {
+        height += Math.exp(3.8-x/16)
+        x += 0.1;
+        if (stopAnimation === 2) {
+            minimize();
+            clearInterval(id);
+        } else if (height >=600) {
             HTMLwindow.style.visibility = "hidden";
             HTMLwindow.style.clipPath = `inset(0 0 0 0)`;
-            clearInterval(id);
+            stopAnimation++;
         } else {
             HTMLwindow.style.clipPath = `inset(0 0 ${height}px 0)`;
         }
     }
-
-    window.setTimeout(minimize, 300);
 }
 
 function minimize() {
     document.getElementById("window").style.visibility = "visible";
-    javaConnector.minimize()
+    javaConnector.minimize();
+    is_minimizing = false;
 }
 
-play.onclick = function () {
-    javaConnector.play();
-}
+// play.onclick = function (e) {
+//     if (e.button !== 0) {
+//         return
+//     }
+//     javaConnector.play();
+// }
 
 var jsConnector = {
     showResult: function (result) {

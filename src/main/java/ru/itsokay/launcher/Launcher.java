@@ -38,6 +38,7 @@ public class Launcher extends Application {
     // Запуск приложения
     @Override
     public void start(Stage stage) throws IOException {
+        System.out.println(new File(".").getCanonicalPath());
         this.stage = stage;
         stage.initStyle(StageStyle.TRANSPARENT); // Отключение фона
         stage.setResizable(false); // Запрет на изменение размера

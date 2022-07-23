@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="../stylesheet/Title.css">
     <link rel="stylesheet" href="../stylesheet/ConnectionStyle.css">
     <link rel="stylesheet" href="../stylesheet/PlayPage.css">
+    <link rel="stylesheet" href="../stylesheet/mainSpace.css">
 
     <title>Title</title>
     <script src="../scripts/Main.js" defer></script>
@@ -23,8 +24,24 @@
                 <button id="minimize" onmousedown="blockMove()" class="minimizeButton"></button>
             </div>
         </div>
-        <div>
-            <button id="play" class="playButton">Играть</button>
+        <div class="mainSpace">
+            <div class="launcherMenu">
+                <div class="LMenuChoice">
+                    <div class="LMenuButtons">
+                        <button class="LMenuAddons">
+                            <span>A</span>
+                        </button>
+                        <button class="LMenuPlay">
+                            <span>P</span>
+                        </button>
+                        <button class="LMenuSettings">
+                            <span>S</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="LMenuLine"></div>
+            </div>
+<!--            <button id="play" class="playButton">Играть</button>-->
         </div>
         <div class="checks" w3-include-html="ChecksMessages.html"></div>
     </div>
