@@ -13,6 +13,7 @@ import netscape.javascript.JSObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Launcher extends Application {
@@ -34,26 +35,30 @@ public class Launcher extends Application {
     boolean alt = false;
     Checks checks;
 
+    protected URL url = new File("src/main/resources/ru/itsokay/launcher/html/Main.html").toURI().toURL(); // Подключение к HTML файлу
+
+    public Launcher() throws MalformedURLException {
+    }
+
 
     // Запуск приложения
     @Override
     public void start(Stage stage) throws IOException {
-        System.out.println(new File(".").getCanonicalPath());
+        System.out.println(new File(".").getCanonicalPath()); // Путь, где запущено приложение.
         this.stage = stage;
         stage.initStyle(StageStyle.TRANSPARENT); // Отключение фона
         stage.setResizable(false); // Запрет на изменение размера
-        URL url = new File("src/main/resources/ru/itsokay/launcher/html/Main.html").toURI().toURL(); // Подключение к HTML файлу
-
-        final WebView browser = new WebView();
-        final WebEngine webEngine = browser.getEngine();
+        final WebView browser = new WebView(); // Браузер
+        final WebEngine webEngine = browser.getEngine(); // Веб-ядро
 
         // Подключение конекторов Java и JavaScript
+
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (Worker.State.SUCCEEDED == newValue) {
                 JSObject window = (JSObject) webEngine.executeScript("window");
                 window.setMember("javaConnector", javaConnector);
-                checks = new Checks((JSObject) webEngine.executeScript("getChecksJsConnector()"), javaConnector);
                 javascriptConnector = (JSObject) webEngine.executeScript("getJsConnector()");
+//                checks = new Checks((JSObject) webEngine.executeScript("getChecksJsConnector()"), javaConnector);
             }
         });
 
@@ -89,15 +94,12 @@ public class Launcher extends Application {
                 case CONTROL -> this.ctrl = true;
                 case W -> {
                     if (this.ctrl)
-                        try {
-                            javascriptConnector.call("closeAnimation()");
-                        } catch (Exception e) {
-                            System.out.println();
-                        }
+                        webEngine.executeScript("closeAnimation()");
                 }
             }
         });
 
+        // Отключает нажатие CTRL и SHIFT если их отпустить
         browser.setOnKeyReleased(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case CONTROL -> ctrl = false;
@@ -108,20 +110,24 @@ public class Launcher extends Application {
         // Перехват внепланового закрытия окна через панель задач или Alt+F4 и даже через диспетчер задач
         stage.setOnCloseRequest(windowEvent -> {
             windowEvent.consume();
-            try {
-                javascriptConnector.call("closeAnimation()");
-            } catch (Exception e) {
-                System.out.println();
+            webEngine.executeScript("closeAnimation()");
+        });
+
+        browser.setPageFill(Color.TRANSPARENT); // Отключение фона, чтобы наложить поверх HTML
+        scene.setFill(Color.TRANSPARENT); // Отключение фона, чтобы наложить поверх HTML
+        stage.getIcons().add(new Image("file:src/main/resources/ru/itsokay/launcher/images/ok.png")); // Иконка приложения
+        stage.setTitle("Hello!"); // Название приложения
+        stage.setScene(scene); // хз
+        stage.show(); // Что-то показывает
+        webEngine.load(url.toString()); // Подгружает главный HTML файл
+        // Исполняет скрипты выбора менюшки и сервера
+        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            if (Worker.State.SUCCEEDED == newValue) {
+                webEngine.executeScript("loadPage();");
+                webEngine.executeScript("SelectSelectedServer();");
             }
         });
 
-        browser.setPageFill(Color.TRANSPARENT);
-        scene.setFill(Color.TRANSPARENT);
-        stage.getIcons().add(new Image("file:src/main/resources/ru/itsokay/launcher/images/ok.png"));
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-        stage.show();
-        webEngine.load(url.toString());
 
 //        if (!checks.checkInternetConnection()) {
 //            System.out.println("CONNECTION ERROR");
