@@ -158,13 +158,11 @@ function unlockScreen() {
 
 // Сброс выбора предыдущего сервера
 function selectServer(serverID) {
+    let front = document.getElementById(SelectedServer).getElementsByClassName("ServerFront")[0];
+    front.style.left = "0";
+    front.style.top = "0";
+    front.style.border = null;
     SelectedServer = serverID;
-    for (let i = 1; i <= serversCount; i++) {
-        let front = document.getElementById("Server" + i).getElementsByClassName("ServerFront")[0];
-        front.style.left = "0";
-        front.style.top = "0";
-        front.style.border = null;
-    }
     SelectSelectedServer();
 }
 

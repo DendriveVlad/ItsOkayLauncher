@@ -45,7 +45,7 @@
 
 .LMenuChoice {
     position: absolute;
-    border: solid #b9b9b9;
+    border: solid #b9b9b9 2px;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
     top: 50%;
