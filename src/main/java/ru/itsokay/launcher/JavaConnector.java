@@ -1,9 +1,22 @@
 package ru.itsokay.launcher;
 
+import javafx.geometry.Rectangle2D;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Screen;
+
 import java.io.*;
+import java.util.Scanner;
 
 public class JavaConnector {
     Launcher mainClass;
+
+    public boolean ResizePressed = false;
+    public String ResizeCoordinate;
+
+    public double fsHeight;
+    public double fsWidth;
+    public double fsX;
+    public double fsY;
 
     public JavaConnector(Launcher cls) {
         mainClass = cls;
@@ -28,6 +41,33 @@ public class JavaConnector {
     public void minimize() {
         mainClass.stage.setIconified(true);
     }  // Кнопка сворачивания
+
+    public void resize(String c) {
+        ResizePressed = !ResizePressed;
+        ResizeCoordinate = c;
+    }
+
+    public void fullScreen() {
+        if (!mainClass.fullScreen) {
+            fsHeight = mainClass.stage.getHeight();
+            fsWidth = mainClass.stage.getWidth();
+            fsX = mainClass.stage.getX();
+            fsY = mainClass.stage.getY();
+            Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+            mainClass.stage.setHeight(screenBounds.getHeight());
+            mainClass.stage.setWidth(screenBounds.getWidth());
+            mainClass.stage.setX(0);
+            mainClass.stage.setY(0);
+            mainClass.fullScreen = true;
+        } else {
+            mainClass.stage.setHeight(fsHeight);
+            mainClass.stage.setWidth(fsWidth);
+            mainClass.stage.setX(fsX);
+            mainClass.stage.setY(fsY);
+            mainClass.fullScreen = false;
+            mainClass.webEngine.executeScript("exitFullScreen()");
+        }
+    }
 
     // запуск игры? Не работает!
     public void play() throws IOException {

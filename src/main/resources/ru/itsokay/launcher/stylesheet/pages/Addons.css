@@ -4,7 +4,7 @@
     position: absolute;
     top: 15px;
     width: 350px;
-    height: 90%;
+    height: calc(100% - 60px);
 }
 
 .AddonsInfo {
@@ -13,6 +13,6 @@
     position: absolute;
     top: 15px;
     right: 40px;
-    width: 590px;
-    height: 90%;
+    width: calc(100% - 410px);
+    height: calc(100% - 60px);
 }

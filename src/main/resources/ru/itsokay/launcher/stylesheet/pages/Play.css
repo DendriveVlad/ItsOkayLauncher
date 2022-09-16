@@ -2,9 +2,10 @@
     background: #272727;
     border-radius: 6px;
     position: absolute;
-    top: 15px;
     width: 200px;
-    height: 90%;
+    height: calc(100% - 60px);
+    bottom: 15px;
+    top: 15px;
 }
 
 .ServerInfo {
@@ -13,6 +14,91 @@
     position: absolute;
     top: 15px;
     right: 40px;
-    width: 740px;
-    height: 90%;
+    width: calc(100% - 260px);
+    height: calc(100% - 60px);
+}
+
+.AboutServer {
+    background: #161616;
+    position: relative;
+    top: 5px;
+    left: 5px;
+    width: calc(40.5% - 20px);
+    height: 37%;
+    border-radius: 6px;
+}
+
+.AboutServer div {
+    position: relative;
+    top: 5px;
+    left: 5px;
+    width: calc(100% - 10px);
+    height: 190px;
+}
+
+.AboutServer a {
+    color: #b9b9b9;
+}
+
+.InstalledAddons {
+    background: #161616;
+    position: relative;
+    top: 15px;
+    left: 5px;
+    border-radius: 6px;
+    width: calc(40.5% - 20px);
+    height: 27.5%;
+}
+
+.Friends {
+    background: #161616;
+    position: relative;
+    top: 25px;
+    left: 5px;
+    border-radius: 6px;
+    width: calc(40.5% - 20px);
+    height: calc(35.5% - 30px);
+}
+
+.blog {
+    background: #161616;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border-radius: 6px;
+    width: 59.5%;
+    height: calc(100% - 140px);
+}
+
+.BootClient {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    border-radius: 6px;
+    width: 440px;
+    height: 120px;
+}
+
+.PlayButton {
+    font-size: 40pt;
+    font-family: "Calibri Light", serif;
+    color: #9ce094;
+    background: #42bb32;
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    border-radius: 24px;
+    width: 300px;
+    height: 90px;
+}
+
+.BootSettings {
+    background: #797979;
+    position: absolute;
+    top: 50%;
+    right: 25px;
+    border-radius: 40px;
+    width: 70px;
+    height: 70px;
+    transform: translate(0, -50%);
 }

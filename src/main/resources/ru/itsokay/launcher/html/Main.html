@@ -18,7 +18,6 @@
     <script src="../scripts/Checks.js" defer></script>
 </head>
 <body>
-<script>info('213321')</script>
 <div class="window" id="window" unselectable="on" onselectstart="return false;" onmousedown="return false;" onload="loadPage()">
     <div class="title" id="title">
         <div class="text">
@@ -35,9 +34,10 @@
         <!--            <button id="play" class="playButton">Играть</button>-->
         <div class="launcherPage" id="launcherPage"></div>
         <div class="lockSpace" id="lockSpace"></div>
-        <div class="launcherMenu" id="launcherMenu" onmouseenter="lockScreen()" onmouseleave="unlockScreen()">
+        <div class="launcherMenu" id="launcherMenu" onmousemove="lockScreen()" onmouseleave="unlockScreen()">
             <div class="LMenuLine"></div>
             <div class="LMenuChoice">
+                <div class="LMC2"></div>
                 <div class="LMenuSelected" id="LMenuSelected"></div>
                 <div class="LMenuButtons">
                     <button class="LMenuAddons" onmousedown="changePage('Addons')">
@@ -52,8 +52,19 @@
                 </div>
             </div>
         </div>
+        <div id="ResizeBlocks">
+            <div class="ResizeBlock1" onmousedown="resizeClick('e')"></div>
+            <div class="ResizeBlock2" onmousedown="resizeClick('n')"></div>
+            <div class="ResizeBlock3" onmousedown="resizeClick('a')" ondblclick="fullScreen()"></div>
+        </div>
+        <div id="ExitFullScreen" ondblclick="fullScreen()"></div>
     </div>
-<!--    <div class="checks" w3-include-html="ChecksMessages.html"></div>-->
+    <div class="debuger" unselectable="off">
+        <label>
+            <textarea id="text" rows="1" cols="6" contenteditable="true"></textarea>
+        </label>
+    </div>
+    <!--    <div class="checks" w3-include-html="ChecksMessages.html"></div>-->
 </div>
 </body>
 </html>

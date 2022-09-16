@@ -5,6 +5,42 @@
     height: 100%;
 }
 
+#ExitFullScreen {
+    display: none;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    bottom: 0;
+    right: 0;
+    cursor: se-resize;
+}
+
+.ResizeBlock1 {
+    position: absolute;
+    width: 8px;
+    height: 100%;
+    right: 0;
+    top: 30px;
+    cursor: e-resize;
+}
+
+.ResizeBlock2 {
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    bottom: 0;
+    cursor: n-resize;
+}
+
+.ResizeBlock3 {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    bottom: 0;
+    right: 0;
+    cursor: se-resize;
+}
+
 .launcherPage {
     position: absolute;
     top: 30px;
@@ -15,24 +51,26 @@
 
 .lockSpace {
     position: absolute;
-    top: 100%;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0);
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background: rgba(22,22,22,1);
     transition: background 200ms;
 }
 
 .launcherMenu {
-    position: absolute;
+    position: relative;
     top: 50%;
     width: 30px;
     height: 230px;
-    transform: translate(0, -50%);
+    transform: translate(0, -55%);
 }
 
 .LMenuLine {
-    position: absolute;
+    position: relative;
     border-radius: 10px;
     top: 50%;
     left: 10px;
@@ -45,24 +83,47 @@
 
 .LMenuChoice {
     position: absolute;
-    border: solid #b9b9b9 2px;
+    transition: left 400ms;
+    top: 50%;
+    width: 100px;
+    height: 100px;
+    transform: translate(0, -50%);
+    left: -90px;
+}
+
+.LMenuChoice:before {
+    content: " ";
+    position: absolute;
+    /*border: solid #b9b9b9 2px;*/
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
     top: 50%;
-    left: -110px;
+    left: -50px;
     width: 100px;
     height: 300px;
-    transform: translate(0, -50%);
-    background: #121212;
-    transition: left 400ms;
+    transform: translate(0, -18%) rotate(20deg);
+    background: #161616;
+}
+
+.LMC2 {
+    content: "";
+    position: relative;
+    /*border: solid #b9b9b9 2px;*/
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    top: 50%;
+    left: -50px;
+    width: 100px;
+    height: 300px;
+    transform: translate(0, -85%) rotate(-20deg);
+    background: #161616;
 }
 
 .LMenuSelected {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     position: absolute;
-    left: -4px;
-    top: 50%;
+    left: -14px;
     transform: translate(0, -50%);
     background: #b9b9b9;
     width: 10px;
@@ -71,12 +132,12 @@
 }
 
 .LMenuButtons {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    position: fixed;
+    top: 45%;
+    left: 5px;
     width: 60px;
     height: 220px;
-    transform: translate(-50%, -50%);
+    transform: translate(0, -50%);
 }
 
 .LMenuAddons {
@@ -144,5 +205,12 @@ span {
 }
 
 .launcherMenu:hover .LMenuChoice {
-    left: -5px;
+    left: 10px;
+}
+
+/*//////////////////////////////////*/
+.debuger {
+    position: absolute;
+    right: 200px;
+    top: 40px;
 }

@@ -2,11 +2,13 @@ package ru.itsokay.launcher;
 
 import javafx.application.Application;
 import javafx.concurrent.Worker;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import netscape.javascript.JSObject;
@@ -22,8 +24,10 @@ public class Launcher extends Application {
     private double yOffset;
     // Разрешение на перемещение экрана
     protected boolean moveAccess = false;
+    protected boolean fullScreen = false;
 
     // Экран
+    protected WebEngine webEngine;
     protected Stage stage;
 
     // Конектор JavaScript к Java
@@ -47,9 +51,9 @@ public class Launcher extends Application {
         System.out.println(new File(".").getCanonicalPath()); // Путь, где запущено приложение.
         this.stage = stage;
         stage.initStyle(StageStyle.TRANSPARENT); // Отключение фона
-        stage.setResizable(false); // Запрет на изменение размера
+//        stage.setResizable(false); // Запрет на изменение размера
         final WebView browser = new WebView(); // Браузер
-        final WebEngine webEngine = browser.getEngine(); // Веб-ядро
+        webEngine = browser.getEngine(); // Веб-ядро
 
         // Подключение конекторов Java и JavaScript
 
@@ -66,6 +70,8 @@ public class Launcher extends Application {
 
         // Вызывается при нажатии на ЛКМ
         browser.setOnMousePressed(event -> {
+            xOffset = event.getScreenX();
+            yOffset = event.getScreenY();
             if (event.getY() <= 30) {
                 moveAccess = true;
                 xOffset = stage.getX() - event.getScreenX();
@@ -76,13 +82,52 @@ public class Launcher extends Application {
         // Вызывается при перемещении мыши с нажатой ЛКМ
         browser.setOnMouseDragged(event -> {
             if (moveAccess) {
+                if (fullScreen) {
+                    javaConnector.fullScreen();
+                    stage.setX(event.getScreenX() - stage.getWidth() / 2);
+                    stage.setY(0);
+                    xOffset = stage.getX() - event.getScreenX();
+                    yOffset = stage.getY() - event.getScreenY();
+                }
                 stage.setX(event.getScreenX() + xOffset);
                 stage.setY(event.getScreenY() + yOffset);
+            } else if (javaConnector.ResizePressed) {
+                if (fullScreen) {
+                    javaConnector.fullScreen();
+                    return;
+                }
+                switch (javaConnector.ResizeCoordinate) {
+                    case "a":
+                    case "e":
+                        if (stage.getWidth() >= 1000) {
+                            stage.setWidth(stage.getWidth() + event.getScreenX() - xOffset);
+                            if (stage.getWidth() > 1000) {
+                                xOffset = event.getScreenX();
+                            }
+                        }
+                        if (stage.getWidth() < 1000) {
+                            stage.setWidth(1000);
+                        }
+                        if (!javaConnector.ResizeCoordinate.equals("a")) {
+                            break;
+                        }
+                    case "n":
+                        if (stage.getHeight() >= 600) {
+                            stage.setHeight(stage.getHeight() + event.getScreenY() - yOffset);
+                            if (stage.getHeight() > 600) {
+                                yOffset = event.getScreenY();
+                            }
+                        }
+                        if (stage.getHeight() < 600) {
+                            stage.setHeight(600);
+                        }
+                }
             }
         });
 
         // Вызывается при отжатии на ЛКМ
         browser.setOnMouseReleased(mouseEvent -> {
+            javaConnector.ResizePressed = false;
             if (moveAccess) {
                 moveAccess = false;
             }
@@ -96,6 +141,32 @@ public class Launcher extends Application {
                     if (this.ctrl)
                         webEngine.executeScript("closeAnimation()");
                 }
+                case R -> {
+                    if (this.ctrl) {
+                        if (fullScreen)
+                            javaConnector.fullScreen();
+                        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+                        stage.setHeight(600);
+                        stage.setWidth(1000);
+                        stage.setX(screenBounds.getWidth() / 3.5);
+                        stage.setY(screenBounds.getHeight() / 3.5);
+                    }
+                }
+                case F11 -> javaConnector.fullScreen();
+                case DIGIT0 -> webEngine.executeScript("debugPlusNum('0');");
+                case DIGIT1 -> webEngine.executeScript("debugPlusNum('1');");
+                case DIGIT2 -> webEngine.executeScript("debugPlusNum('2');");
+                case DIGIT3 -> webEngine.executeScript("debugPlusNum('3');");
+                case DIGIT4 -> webEngine.executeScript("debugPlusNum('4');");
+                case DIGIT5 -> webEngine.executeScript("debugPlusNum('5');");
+                case DIGIT6 -> webEngine.executeScript("debugPlusNum('6');");
+                case DIGIT7 -> webEngine.executeScript("debugPlusNum('7');");
+                case DIGIT8 -> webEngine.executeScript("debugPlusNum('8');");
+                case DIGIT9 -> webEngine.executeScript("debugPlusNum('9');");
+                case BACK_SPACE -> webEngine.executeScript("debugPlusNum('-');");
+                case ENTER -> webEngine.executeScript("debugSubmit();");
+                case MINUS -> webEngine.executeScript("debugPlusNum('n');");
+                case PERIOD -> webEngine.executeScript("debugPlusNum('.');");
             }
         });
 
@@ -124,7 +195,6 @@ public class Launcher extends Application {
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (Worker.State.SUCCEEDED == newValue) {
                 webEngine.executeScript("loadPage();");
-                webEngine.executeScript("SelectSelectedServer();");
             }
         });
 
